@@ -1,5 +1,5 @@
-<form action="<?php echo URL; ?>albums/saveCreate" method="post">
-    <h1>Create Album</h1>
+<form action="<?php echo URL; ?>categories/saveCreate" method="post">
+    <h1>Create Category</h1>
     <label>Name: </label><input type="text" name="name" value=""></input><br/>
     <label>Description: </label>
     <textarea name="description"></textarea><br/>

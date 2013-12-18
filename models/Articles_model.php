@@ -17,6 +17,9 @@ class Articles_model extends Model {
 
     public function getList() {
         $articles = $this->db->select("SELECT * FROM articles");
+        foreach($articles as &$article){
+            $article['categoryName'] = $this->getAlbumName($article['category']);
+        }
         return $articles;
     }
 
@@ -38,34 +41,38 @@ class Articles_model extends Model {
     }
 
     //saveEdit
-    public function saveEdit() {
-        if (empty($_POST['id']) || empty($_POST['title']) || empty($_POST['content'])) {
-            die('Fill in everything!');
-        }
-        $id = $_POST['id'];
-        $title = htmlentities($_POST['title']);
-        $content = htmlentities($_POST['content']);
-
-        $this->db->update("UPDATE articles SET title=:title, content=:content WHERE id=:id", array(
+    public function saveEdit($id,$title,$content,$category) {
+        
+        $this->db->update("UPDATE articles SET title=:title, content=:content, category=:category WHERE id=:id", array(
             "id" => $id,
             "title" => $title,
-            "content" => $content
+            "content" => $content,
+            "category" => $category
         ));
         header('Location: ' . URL . 'articles/');
     }
 
     //saveCreate
-    public function saveCreate(){
-        if (empty($_POST['title']) || empty($_POST['content'])) {
-            die('Fill in everything!');
-        }
-        $title = htmlentities($_POST['title']);
-        $content = htmlentities($_POST['content']);
-
+    public function saveCreate($title,$content,$category){
+        
         $this->db->insert("articles",array(
             "title" => $title,
-            "content" => $content
+            "content" => $content,
+            "category" => $category
         ));
         header('Location: ' . URL . 'articles/');
+    }
+    
+    //category functions
+    public function getAlbums(){
+        $categories = $this->db->select("SELECT name,id FROM categories");
+        return $categories;
+    }
+    
+    public function getAlbumName($id){
+        $albumName = $this->db->select("SELECT name FROM categories WHERE id=:id",array(
+            "id" => $id
+        ));
+        return $albumName[0]['name'];
     }
 }
