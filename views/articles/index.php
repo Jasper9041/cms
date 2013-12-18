@@ -6,7 +6,7 @@
         <tr>
             <td><?php echo $article['id']; ?></td>
             <td><?php echo $article['title']; ?></td>
-            <td><?php echo $article['category']; ?></td>
+            <td><?php echo $article['categoryName']; ?></td>
             <td>
                 <a href="<?php echo URL; ?>articles/edit/<?php echo $article['id']; ?>">Edit</a>
             </td>
