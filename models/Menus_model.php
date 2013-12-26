@@ -48,4 +48,20 @@ class Menus_model extends Model {
         return $menus;
     }
 
+    public function delete($id){
+        $menu = $this->get($id);
+        if (isset($menu)) {
+            $this->db->delete('menus', 'id = :id', array(
+                "id" => $id
+            ));
+            //succes
+            //echo 'succes';
+            header('Location: ' . URL . 'menus/');
+        } else {
+            //no such menu
+            //echo 'no such menu';
+            header('Location: ' . URL . 'menus/');
+        }
+    }
+    
 }
