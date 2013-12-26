@@ -1,1 +1,44 @@
-This is the menus list<br/>
+<h1>Menu Items</h1>
+<a href="<?php echo URL; ?>menus/create">Create New Menu</a><br/><br/>
+<table>
+    <tr><td>Id: </td><td>Title: </td><td>Alias: </td><td>Link: </td><td>ParentId: </td></tr>
+    <?php render($this->menus); ?>
+</table>
+
+<?php
+    $url = URL;
+    function render($menus,$parentId = 0,$level = 0){
+        global $url;
+        
+        foreach ($menus as $menu) {
+            $spacer = str_repeat("-", $level)." ";
+            if($menu["parentId"] == $parentId){
+                //display stuff
+                
+                $content = <<<CONTENT
+                        
+                <tr>
+                    <td>{$spacer}{$menu['id']}</td>
+                    <td>{$menu['title']}</td>
+                    <td>{$menu['alias']}</td>
+                    <td>{$menu['link']}</td>
+                    <td>{$menu['parentId']}</td>
+                    <td>
+                        <a href="{$url}menus/edit/{$menu['id']}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{$url}menus/delete/{$menu['id']}">Delete</a>
+                    </td>
+                </tr>
+                        
+CONTENT;
+                echo $content;
+                if(isset($menu["Children"])){
+                    //item has child elements
+                    render($menu["Children"],$menu["id"],$level + 1);
+                }
+                
+                
+            }
+        }
+    }

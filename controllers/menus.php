@@ -1,6 +1,6 @@
 <?php
 
-class Menu extends Controller {
+class Menus extends Controller {
 
     function __construct() {
         parent::__construct();
@@ -8,7 +8,8 @@ class Menu extends Controller {
     }
     
     public function Index(){
-        $this->view->title = "Menus";
+        $this->view->title = "Menu Items";        
+        $this->view->menus = $this->model->createMenuTree();
         $this->view->render('menus/index');
     }
     

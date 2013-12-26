@@ -48,5 +48,15 @@ class Database extends PDO {
         $sql->execute();
         return $sql->fetchAll($mode);
     }
+    
+    public function count($query, $data = array(), $mode = PDO::FETCH_NUM){
+        $sql = $this->prepare($query);
+        foreach ($data as $key => $value) {
+            $sql->bindValue(":$key", $value);
+        }
+        $sql->execute();
+        $rows = $sql->fetch($mode);
+        return $rows[0];
+    }
 
 }
