@@ -1,15 +1,14 @@
 <h1>Menu Items</h1>
-<a href="<?php echo URL; ?>menus/create">Create New Menu</a><br/><br/>
+<a href="<?php echo URL; ?>menus/create">Create New Menu Item</a><br/><br/>
 <table>
     <tr><td>Id: </td><td>Title: </td><td>Alias: </td><td>Link: </td><td>ParentId: </td></tr>
     <?php render($this->menus); ?>
 </table>
 
 <?php
-    $url = URL;
+    
     function render($menus,$parentId = 0,$level = 0){
-        global $url;
-        
+        $uri = URL;
         foreach ($menus as $menu) {
             $spacer = str_repeat("-", $level)." ";
             if($menu["parentId"] == $parentId){
@@ -24,10 +23,10 @@
                     <td>{$menu['link']}</td>
                     <td>{$menu['parentId']}</td>
                     <td>
-                        <a href="{$url}menus/edit/{$menu['id']}">Edit</a>
+                        <a href="{$uri}menus/edit/{$menu['id']}">Edit</a>
                     </td>
                     <td>
-                        <a href="{$url}menus/delete/{$menu['id']}">Delete</a>
+                        <a href="{$uri}menus/delete/{$menu['id']}">Delete</a>
                     </td>
                 </tr>
                         

@@ -4,7 +4,7 @@
     <label>Title: </label><input type="text" name="title" value="<?php echo $this->menu['title']; ?>"></input><br/>
     <label>Parent: </label>
         <select name='parentId'>
-            <?php foreach($this->menus as $parent){ ?>
+            <?php foreach($this->parents as $parent){ ?>
                 <?php if($parent['id'] != $this->menu['id']){ ?>
                     <option value="<?php echo $parent['id']; ?>" <?php echo ($parent['id']==$this->menu['parentId'] ? 'selected' : ''); ?> ><?php echo $parent['title']; ?></option>
                 <?php } ?>

@@ -26,6 +26,15 @@ class Menus_model extends Model {
         ));
         return $menus;
     }
+    
+    public function getParentsList(){
+        $parents = $this->getList();
+        $parents[] = array(
+            "id" => 0,
+            "title" => "menu root"
+        );
+        return $parents;
+    }
 
     public function createMenuTree($parentId = 0) {
         $tree = array();
@@ -64,4 +73,24 @@ class Menus_model extends Model {
         }
     }
     
+    public function saveEdit($id,$title,$alias,$link,$parentId){
+        $this->db->update("UPDATE menus SET title=:title, alias=:alias, link=:link, parentId=:parentId WHERE id=:id",array(
+            "id" => $id,
+            "title" => $title,
+            "alias" => $alias,
+            "link" => $link,
+            "parentId" => $parentId
+        ));
+        header('Location: ' . URL . 'menus/');
+    }
+    
+    public function saveCreate($title,$alias,$link,$parentId) {
+        $this->db->insert("menus",array(
+            "title" => $title,
+            "alias" => $alias,
+            "link" => $link,
+            "parentId" => $parentId
+        ));
+        header('Location: ' . URL . 'menus/');
+    }
 }
