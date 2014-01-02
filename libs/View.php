@@ -2,6 +2,8 @@
 
 class View {
 
+    private $_headerData = array();
+    
     function __construct() {
         
     }
@@ -10,5 +12,9 @@ class View {
         require 'views/header.php';
         require 'views/' . $path . '.php';
         require 'views/footer.php';
+    }
+    
+    public function addToHeader($data){
+        $this->_headerData[] = $data;
     }
 }

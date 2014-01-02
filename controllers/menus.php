@@ -32,23 +32,25 @@ class Menus extends Controller {
         }
     }
     
-    public function create(){
+    public function create($type = null){
         $this->view->title = "Create New Menu Item";
+        $this->view->addToHeader("<script type='text/javascript' src='".URL."views/menus/typeChanged.js'></script>");
         $this->view->parents = $this->model->getParentsList();
+        $this->view->types = $this->model->getTypes();
+        $this->view->type = $type;
+        $this->view->data = $this->model->getTypeData($type);
         $this->view->render("menus/create");
     }
     
     public function saveCreate(){
-        if (empty($_POST['title']) || empty($_POST['alias']) || empty($_POST['link']) || $_POST['parentId']=="") {
+        if (empty($_POST['title']) || empty($_POST['alias']) || empty($_POST['type']) || $_POST['parentId']=="") {
             die('Fill in everything!<br/>'.
-                    $_POST['title'].'<br/>'.
-                    $_POST['alias'].'<br/>'.
-                    $_POST['link'].'<br/>'.
-                    $_POST['parentId'].'<br/>'
+               $_POST['title'] . '<br/>' . $_POST['alias'] . '<br/>' . $_POST['link'] . '<br/>' . $_POST['parentId'] . '<br/>' . $_POST['type']     
                     );
         } else {
-            $this->model->saveCreate($_POST['title'], $_POST['alias'], $_POST['link'], $_POST['parentId']);
+            $this->model->saveCreate($_POST['title'], $_POST['alias'], $_POST['parentId'], $_POST['type']);
         }
         
     }
+    
 }

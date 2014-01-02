@@ -84,13 +84,54 @@ class Menus_model extends Model {
         header('Location: ' . URL . 'menus/');
     }
     
-    public function saveCreate($title,$alias,$link,$parentId) {
+    public function saveCreate($title,$alias,$parentId,$type) {
+        $link = "";
+        switch($type){
+            case null:
+                $link = $_POST["link"];
+                break;
+            case "article":
+                $link = URL."viewArticle/".$_POST["articleId"];
+                break;
+            case "archive":
+                $link = URL."viewArchive/".$_POST["categoryId"];
+                break;
+            case "link":
+                $link = $_POST["link"];
+                break;    
+        }
+        
         $this->db->insert("menus",array(
             "title" => $title,
             "alias" => $alias,
             "link" => $link,
-            "parentId" => $parentId
+            "parentId" => $parentId,
+            "type" => $type
         ));
         header('Location: ' . URL . 'menus/');
+    }
+    
+    public function getTypeData($type){
+        
+        switch($type){
+            case null:
+                return null;
+            case "article":
+                require_once 'models/Articles_model.php';
+                $this->tempModel = new Articles_model();
+                return $this->tempModel->getList();
+            case "archive":
+                require_once 'models/Categories_model.php';
+                $this->tempModel = new Categories_model();
+                return $this->tempModel->getList();
+            case "link":
+                return null;     
+        }
+        
+        //Return
+    }
+    
+    public function getTypes(){
+        return array("link","article","archive");
     }
 }
