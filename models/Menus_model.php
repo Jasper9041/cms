@@ -26,8 +26,8 @@ class Menus_model extends Model {
         ));
         return $menus;
     }
-    
-    public function getParentsList(){
+
+    public function getParentsList() {
         $parents = $this->getList();
         $parents[] = array(
             "id" => 0,
@@ -45,7 +45,6 @@ class Menus_model extends Model {
                 $node["Children"] = $this->createMenuTree($node["id"]);
             }
             $tree[] = $node;
-            
         }
         return $tree;
     }
@@ -57,7 +56,7 @@ class Menus_model extends Model {
         return $menus;
     }
 
-    public function delete($id){
+    public function delete($id) {
         $menu = $this->get($id);
         if (isset($menu)) {
             $this->db->delete('menus', 'id = :id', array(
@@ -72,9 +71,9 @@ class Menus_model extends Model {
             header('Location: ' . URL . 'menus/');
         }
     }
-    
-    public function saveEdit($id,$title,$alias,$link,$parentId){
-        $this->db->update("UPDATE menus SET title=:title, alias=:alias, link=:link, parentId=:parentId WHERE id=:id",array(
+
+    public function saveEdit($id, $title, $alias, $link, $parentId) {
+        $this->db->update("UPDATE menus SET title=:title, alias=:alias, link=:link, parentId=:parentId WHERE id=:id", array(
             "id" => $id,
             "title" => $title,
             "alias" => $alias,
@@ -83,37 +82,20 @@ class Menus_model extends Model {
         ));
         header('Location: ' . URL . 'menus/');
     }
-    
-    public function saveCreate($title,$alias,$parentId,$type) {
-        $link = "";
-        switch($type){
-            case null:
-                $link = $_POST["link"];
-                break;
-            case "article":
-                $link = URL."viewArticle/".$_POST["articleId"];
-                break;
-            case "archive":
-                $link = URL."viewArchive/".$_POST["categoryId"];
-                break;
-            case "link":
-                $link = $_POST["link"];
-                break;    
-        }
-        
-        $this->db->insert("menus",array(
+
+    public function saveCreate($title, $alias, $parentId, $type) {
+        $this->db->insert("menus", array(
             "title" => $title,
             "alias" => $alias,
-            "link" => $link,
+            "link" => $this->getLink($type),
             "parentId" => $parentId,
             "type" => $type
         ));
         header('Location: ' . URL . 'menus/');
     }
-    
-    public function getTypeData($type){
-        
-        switch($type){
+
+    public function getTypeData($type) {
+        switch ($type) {
             case null:
                 return null;
             case "article":
@@ -125,13 +107,26 @@ class Menus_model extends Model {
                 $this->tempModel = new Categories_model();
                 return $this->tempModel->getList();
             case "link":
-                return null;     
+                return null;
         }
-        
-        //Return
+        return null;
     }
-    
-    public function getTypes(){
-        return array("link","article","archive");
+
+    public function getTypes() {
+        return array("link", "article", "archive");
     }
+
+    public function getLink($type) {
+        switch ($type) {
+            case null:
+                return $_POST["link"];
+            case "article":
+                return URL . "viewArticle/" . $_POST["articleId"];
+            case "archive":
+                return URL . "viewArchive/" . $_POST["categoryId"];
+            case "link":
+                return $_POST["link"];
+        }
+    }
+
 }

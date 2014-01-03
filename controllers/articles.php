@@ -18,6 +18,7 @@ class Articles extends Controller {
     public function create() {
         $this->view->title = "Create Article";
         $this->view->categories = $this->model->getAlbums();
+        $this->view->addToHeader('<script type="text/javascript" src="' . URL . 'libs/tinymce/tinymce.min.js"></script>');
         $this->view->render('articles/create');
     }
 
@@ -34,6 +35,7 @@ class Articles extends Controller {
         $this->view->title = "Edit Article";
         $this->view->categories = $this->model->getAlbums();
         $this->view->article = $this->model->get($id);
+        $this->view->addToHeader('<script type="text/javascript" src="' . URL . 'libs/tinymce/tinymce.min.js"></script>');
 
         if (empty($this->view->article)) {
             require 'controllers/error.php';
