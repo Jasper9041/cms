@@ -26,8 +26,24 @@ class Menus extends Controller {
         if ($type != null){
             $this->view->menu["type"] = $type;
         }
-        $this->view->data = $this->model->getTypeData($this->view->menu["type"]);
-        $this->view->render("menus/edit");
+        
+        switch ($this->view->menu["type"]){
+            case "link":
+                $this->view->render("menus/edit/link");
+                break;
+            case "archive":
+                $this->view->data = $this->model->getCategoryList();
+                $this->view->render("menus/edit/archive");
+                break;
+            case "article":
+                $this->view->data = $this->model->getArticleList();
+                $this->view->render("menus/edit/article");
+                break;
+            default:
+                $this->view->render("menus/edit/link");
+                break;
+        }
+        
     }
     
     public function saveEdit(){
@@ -44,8 +60,23 @@ class Menus extends Controller {
         $this->view->parents = $this->model->getParentsList();
         $this->view->types = $this->model->getTypes();
         $this->view->type = $type;
-        $this->view->data = $this->model->getTypeData($type);
-        $this->view->render("menus/create");
+        
+        switch ($type){
+            case "link":
+                $this->view->render("menus/create/link");
+                break;
+            case "archive":
+                $this->model->data = $this->model->getCategoryList();
+                $this->view->render("menus/create/archive");
+                break;
+            case "article":
+                $this->view->data = $this->model->getArticleList();
+                $this->view->render("menus/create/article");
+                break;
+            default:
+                $this->view->render("menus/create/link");
+                break;
+        }
     }
     
     public function saveCreate(){
