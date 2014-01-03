@@ -17,18 +17,24 @@ class Menus extends Controller {
         $this->model->delete($id);
     }
     
-    public function edit($id){
+    public function edit($id,$type=null){
         $this->view->title = "Edit Menu Item";
+        $this->view->addToHeader("<script type='text/javascript' src='".URL."views/menus/typeChanged.js'></script>");
         $this->view->menu = $this->model->get($id);
         $this->view->parents = $this->model->getParentsList();
+        $this->view->types = $this->model->getTypes();
+        if ($type != null){
+            $this->view->menu["type"] = $type;
+        }
+        $this->view->data = $this->model->getTypeData($this->view->menu["type"]);
         $this->view->render("menus/edit");
     }
     
     public function saveEdit(){
-        if (empty($_POST['id']) || empty($_POST['title']) || empty($_POST['alias']) || empty($_POST['link']) || $_POST['parentId']=="") {
+        if (empty($_POST['id']) || empty($_POST['title']) || empty($_POST['alias']) || empty($_POST['type']) || $_POST['parentId']=="") {
             die('Fill in everything!<br/>');
         } else {
-            $this->model->saveEdit($_POST['id'], $_POST['title'], $_POST['alias'], $_POST['link'], $_POST['parentId']);
+            $this->model->saveEdit($_POST['id'], $_POST['title'], $_POST['alias'], $_POST['parentId'], $_POST['type']);
         }
     }
     

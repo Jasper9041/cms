@@ -72,13 +72,14 @@ class Menus_model extends Model {
         }
     }
 
-    public function saveEdit($id, $title, $alias, $link, $parentId) {
-        $this->db->update("UPDATE menus SET title=:title, alias=:alias, link=:link, parentId=:parentId WHERE id=:id", array(
+    public function saveEdit($id, $title, $alias, $parentId, $type) {
+        $this->db->update("UPDATE menus SET title=:title, alias=:alias, link=:link, parentId=:parentId, type=:type WHERE id=:id", array(
             "id" => $id,
             "title" => $title,
             "alias" => $alias,
-            "link" => $link,
-            "parentId" => $parentId
+            "link" => $this->getLink($type),
+            "parentId" => $parentId,
+            "type" => $type
         ));
         header('Location: ' . URL . 'menus/');
     }

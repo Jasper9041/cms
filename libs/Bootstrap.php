@@ -37,7 +37,12 @@ class Bootsrap {
                     if (empty($this->_url[2])) {
                         $this->_controller->{$this->_url[1]}();
                     } else {
-                        $this->_controller->{$this->_url[1]}($this->_url[2]);
+                        
+                        if (empty($this->_url[3])) {
+                            $this->_controller->{$this->_url[1]}($this->_url[2]);
+                        } else {
+                            $this->_controller->{$this->_url[1]}($this->_url[2], $this->_url[3]);
+                        }
                     }
                 } else {
                     $this->error();

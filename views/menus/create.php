@@ -4,7 +4,7 @@
     <label>Title: </label><input type="text" name="title" value=""></input><br/>
     <label>Alias: </label><input type="text" name="alias" value=""></input><br/>
     <label>Type: </label>
-        <select name='type' id="typeSelect" onchange="typeChanged('<?php echo URL; ?>')">
+        <select name='type' id="typeSelect" onchange="typeChanged('<?php echo URL; ?>menus/create/')">
             <?php foreach($this->types as $typeTMP){ ?>
                 <option value="<?php echo $typeTMP; ?>" <?php echo (strtolower($typeTMP) == strtolower($this->type)) ? "selected" : "";  ?> ><?php echo $typeTMP; ?></option>
             <?php } ?>
@@ -24,8 +24,8 @@
             case "archive":
                 echo "<label>Category: </label>";
                 echo "<select name='categoryId'>";
-                foreach($this->data as $article){
-                    echo '<option value="' . $article["id"] . '">' . $article["name"] . '</option>';
+                foreach($this->data as $category){
+                    echo '<option value="' . $category["id"] . '">' . $category["name"] . '</option>';
                 }
                 echo "</select>";
                 echo "<br/>";
@@ -34,8 +34,8 @@
             case "article":
                 echo "<label>Article: </label>";
                 echo "<select name='articleId'>";
-                foreach($this->data as $category){
-                    echo '<option value="' . $category["id"] . '">' . $category["title"] . '</option>';
+                foreach($this->data as $article){
+                    echo '<option value="' . $article["id"] . '">' . $article["title"] . '</option>';
                 }
                 echo "</select>";
                 echo "<br/>";

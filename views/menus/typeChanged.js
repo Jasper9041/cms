@@ -1,3 +1,3 @@
 function typeChanged($baseURL){
-    window.location.replace($baseURL + "menus/create/" + $("#typeSelect").val());
+    window.location.replace($baseURL + $("#typeSelect").val());
 }
