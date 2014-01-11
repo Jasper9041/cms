@@ -39,6 +39,9 @@ class Menus extends Controller {
                 $this->view->data = $this->model->getArticleList();
                 $this->view->render("menus/edit/article");
                 break;
+            case "home":
+                $this->view->render("menus/edit/home");
+                break;
             default:
                 $this->view->render("menus/edit/link");
                 break;
@@ -72,6 +75,9 @@ class Menus extends Controller {
             case "article":
                 $this->view->data = $this->model->getArticleList();
                 $this->view->render("menus/create/article");
+                break;
+            case "home":
+                $this->view->render("menus/create/home");
                 break;
             default:
                 $this->view->render("menus/create/link");

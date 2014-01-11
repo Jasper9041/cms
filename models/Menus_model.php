@@ -96,7 +96,7 @@ class Menus_model extends Model {
     }
 
     public function getTypes() {
-        return array("link", "article", "archive");
+        return array("link", "article", "archive", "home");
     }
 
     public function getLink($type) {
@@ -109,6 +109,8 @@ class Menus_model extends Model {
                 return URL . "viewArchive/" . $_POST["categoryId"];
             case "link":
                 return $_POST["link"];
+            case "home":
+                return URL;
         }
     }
 
