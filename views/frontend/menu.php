@@ -3,8 +3,6 @@
     <?php render($this->mainMenu); ?>
 </div>
 
-
-
 <?php
 function render($menus, $parentId = 0, $level = 0) {
     echo '<ul>';

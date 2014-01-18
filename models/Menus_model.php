@@ -104,13 +104,13 @@ class Menus_model extends Model {
             case null:
                 return $_POST["link"];
             case "article":
-                return URL . "viewArticle/" . $_POST["articleId"];
+                return "articles/view/" . $_POST["articleId"];
             case "archive":
-                return URL . "viewArchive/" . $_POST["categoryId"];
+                return "articles/viewArchive/" . $_POST["categoryId"];
             case "link":
                 return $_POST["link"];
             case "home":
-                return URL;
+                return "";
         }
     }
 
