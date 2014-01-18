@@ -9,7 +9,7 @@ class View {
     }
 
     public function render($paths) {
-        require 'views/header.php';
+        require 'views/frontend/header.php';
         if(is_array($paths)){
             foreach ($paths as $path) {
                 require 'views/' . $path . '.php';
@@ -17,7 +17,19 @@ class View {
         }else{
             require 'views/' . $paths . '.php';
         }
-        require 'views/footer.php';
+        require 'views/frontend/footer.php';
+    }
+    
+    public function renderAdmin($paths) {
+        require 'views/backend/header.php';
+        if(is_array($paths)){
+            foreach ($paths as $path) {
+                require 'views/' . $path . '.php';
+            }
+        }else{
+            require 'views/' . $paths . '.php';
+        }
+        require 'views/backend/footer.php';
     }
     
     public function addToHeader($data){

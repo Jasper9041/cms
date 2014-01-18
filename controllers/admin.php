@@ -7,7 +7,7 @@ class Admin extends Controller {
     }
     
     public function Index(){
-        $this->view->render('admin/index');
+        $this->view->renderAdmin('admin/index');
     }
 
 }

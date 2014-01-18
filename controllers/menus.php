@@ -10,7 +10,7 @@ class Menus extends Controller {
     public function Index(){
         $this->view->title = "Menu Items";        
         $this->view->menus = $this->model->createMenuTree();
-        $this->view->render('menus/index');
+        $this->view->renderAdmin('menus/index');
     }
     
     public function delete($id){
@@ -29,21 +29,21 @@ class Menus extends Controller {
         
         switch ($this->view->menu["type"]){
             case "link":
-                $this->view->render("menus/edit/link");
+                $this->view->renderAdmin("menus/edit/link");
                 break;
             case "archive":
                 $this->view->data = $this->model->getCategoryList();
-                $this->view->render("menus/edit/archive");
+                $this->view->renderAdmin("menus/edit/archive");
                 break;
             case "article":
                 $this->view->data = $this->model->getArticleList();
-                $this->view->render("menus/edit/article");
+                $this->view->renderAdmin("menus/edit/article");
                 break;
             case "home":
-                $this->view->render("menus/edit/home");
+                $this->view->renderAdmin("menus/edit/home");
                 break;
             default:
-                $this->view->render("menus/edit/link");
+                $this->view->renderAdmin("menus/edit/link");
                 break;
         }
         
@@ -66,21 +66,21 @@ class Menus extends Controller {
         
         switch ($type){
             case "link":
-                $this->view->render("menus/create/link");
+                $this->view->renderAdmin("menus/create/link");
                 break;
             case "archive":
                 $this->model->data = $this->model->getCategoryList();
-                $this->view->render("menus/create/archive");
+                $this->view->renderAdmin("menus/create/archive");
                 break;
             case "article":
                 $this->view->data = $this->model->getArticleList();
-                $this->view->render("menus/create/article");
+                $this->view->renderAdmin("menus/create/article");
                 break;
             case "home":
-                $this->view->render("menus/create/home");
+                $this->view->renderAdmin("menus/create/home");
                 break;
             default:
-                $this->view->render("menus/create/link");
+                $this->view->renderAdmin("menus/create/link");
                 break;
         }
     }

@@ -9,13 +9,13 @@ class Categories extends Controller {
 
     public function Index() {
         $this->view->categories = $this->model->getList();
-        $this->view->render('categories/index');
+        $this->view->renderAdmin('categories/index');
     }
 
     public function edit($id) {
         $this->view->title = "Edit Category";
         $this->view->category = $this->model->get($id);
-        $this->view->render('categories/edit');
+        $this->view->renderAdmin('categories/edit');
     }
 
     public function delete($id) {
@@ -34,7 +34,7 @@ class Categories extends Controller {
 
     public function create() {
         $this->view->title = "Create Category";
-        $this->view->render("categories/create");
+        $this->view->renderAdmin("categories/create");
     }
 
     public function saveCreate() {
