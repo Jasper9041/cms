@@ -7,6 +7,7 @@ class Test extends Controller {
     }
     
     public function Index(){
+        $this->view->mainMenu = MenuUtil::getMenu();
         $this->model->Index();
         $this->view->render('test/test');
     }

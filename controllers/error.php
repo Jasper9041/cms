@@ -7,6 +7,7 @@ class Error extends Controller {
     }
     
     public function index($msg = "An error occured!"){
+        $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->title = "Error";
         $this->view->message = $msg;
         $this->view->render('error/error');

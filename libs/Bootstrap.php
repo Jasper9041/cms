@@ -12,6 +12,7 @@ class Bootsrap {
         require_once 'libs/View.php';
         require_once 'util/Session.php';
         require_once 'util/Auth.php';
+        require_once 'util/MenuUtil.php';
 
         $this->_url = isset($_GET['url']) ? $_GET['url'] : null;
         $this->_url = rtrim($this->_url, '/');

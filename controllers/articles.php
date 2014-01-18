@@ -67,6 +67,7 @@ class Articles extends Controller {
     
     //Display single article
     public function view($id){
+        $this->view->mainMenu = MenuUtil::getMenu();
         $article = $this->model->get($id);
         $this->view->article = $article;
         $this->view->title = $article["title"];
@@ -75,6 +76,7 @@ class Articles extends Controller {
     
     //Display article archive
     public function viewArchive($categoryId){
+        $this->view->mainMenu = MenuUtil::getMenu();
         $articles = $this->model->getListByCategory($categoryId);
         $this->view->articles = $articles;
         $this->view->title = $this->model->getCategoryName($categoryId);
