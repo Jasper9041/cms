@@ -65,12 +65,20 @@ class Articles extends Controller {
         $this->model->delete($id);
     }
     
-    //Display
+    //Display single article
     public function view($id){
         $article = $this->model->get($id);
         $this->view->article = $article;
         $this->view->title = $article["title"];
         $this->view->render("articles/view");
+    }
+    
+    //Display article archive
+    public function viewArchive($categoryId){
+        $articles = $this->model->getListByCategory($categoryId);
+        $this->view->articles = $articles;
+        $this->view->title = $this->model->getCategoryName($categoryId);
+        $this->view->render("articles/viewArchive");
     }
 
 }

@@ -18,8 +18,16 @@ class Articles_model extends Model {
     public function getList() {
         $articles = $this->db->select("SELECT * FROM articles");
         foreach($articles as &$article){
-            $article['categoryName'] = $this->getAlbumName($article['category']);
+            $article['categoryName'] = $this->getCategoryName($article['category']);
         }
+        return $articles;
+    }
+    
+    public function getListByCategory($categoryId) {
+        $articles = $this->db->select("SELECT * FROM articles WHERE category = :category",array("category" => $categoryId));
+//        foreach($articles as &$article){
+//            $article['categoryName'] = $this->getCategoryName($article['category']);
+//        }
         return $articles;
     }
 
