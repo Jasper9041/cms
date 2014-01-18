@@ -18,7 +18,7 @@ class Articles extends Controller {
     public function create() {
         Auth::validateLogin();
         $this->view->title = "Create Article";
-        $this->view->categories = $this->model->getAlbums();
+        $this->view->categories = $this->model->getCategory();
         $this->view->addToHeader('<script type="text/javascript" src="' . URL . 'libs/tinymce/tinymce.min.js"></script>');
         $this->view->render('articles/create');
     }
@@ -36,7 +36,7 @@ class Articles extends Controller {
     public function edit($id) {
         Auth::validateLogin();
         $this->view->title = "Edit Article";
-        $this->view->categories = $this->model->getAlbums();
+        $this->view->categories = $this->model->getCategory();
         $this->view->article = $this->model->get($id);
         $this->view->addToHeader('<script type="text/javascript" src="' . URL . 'libs/tinymce/tinymce.min.js"></script>');
 

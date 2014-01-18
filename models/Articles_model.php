@@ -64,12 +64,12 @@ class Articles_model extends Model {
     }
     
     //category functions
-    public function getAlbums(){
+    public function getCategory(){
         $categories = $this->db->select("SELECT name,id FROM categories");
         return $categories;
     }
     
-    public function getAlbumName($id){
+    public function getCategoryName($id){
         $albumName = $this->db->select("SELECT name FROM categories WHERE id=:id",array(
             "id" => $id
         ));
