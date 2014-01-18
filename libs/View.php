@@ -8,9 +8,15 @@ class View {
         
     }
 
-    public function render($path) {
+    public function render($paths) {
         require 'views/header.php';
-        require 'views/' . $path . '.php';
+        if(is_array($paths)){
+            foreach ($paths as $path) {
+                require 'views/' . $path . '.php';
+            }
+        }else{
+            require 'views/' . $paths . '.php';
+        }
         require 'views/footer.php';
     }
     
