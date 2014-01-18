@@ -4,11 +4,11 @@ class Articles extends Controller {
 
     function __construct() {
         parent::__construct();
-        Auth::validateLogin();
     }
 
     //List
     public function Index() {
+        Auth::validateLogin();
         $this->view->title = "Articles";
         $this->view->articles = $this->model->getList();
         $this->view->render('articles/index');
@@ -16,6 +16,7 @@ class Articles extends Controller {
 
     //Create
     public function create() {
+        Auth::validateLogin();
         $this->view->title = "Create Article";
         $this->view->categories = $this->model->getAlbums();
         $this->view->addToHeader('<script type="text/javascript" src="' . URL . 'libs/tinymce/tinymce.min.js"></script>');
@@ -23,6 +24,7 @@ class Articles extends Controller {
     }
 
     public function saveCreate() {
+        Auth::validateLogin();
         if (empty($_POST['title']) || empty($_POST['content'])) {
             die('Fill in everything!');
         }else{
@@ -32,6 +34,7 @@ class Articles extends Controller {
 
     //Edit
     public function edit($id) {
+        Auth::validateLogin();
         $this->view->title = "Edit Article";
         $this->view->categories = $this->model->getAlbums();
         $this->view->article = $this->model->get($id);
@@ -48,6 +51,7 @@ class Articles extends Controller {
     }
 
     public function saveEdit() {
+        Auth::validateLogin();
         if (empty($_POST['id']) || empty($_POST['title']) || empty($_POST['content']) || empty($_POST['category'])) {
             die('Fill in everything!');
         } else {
@@ -55,9 +59,18 @@ class Articles extends Controller {
         }
     }
 
-    //Delete    
+    //Delete
     public function delete($id) {
+        Auth::validateLogin();
         $this->model->delete($id);
+    }
+    
+    //Display
+    public function view($id){
+        $article = $this->model->get($id);
+        $this->view->article = $article;
+        $this->view->title = $article["title"];
+        $this->view->render("articles/view");
     }
 
 }
