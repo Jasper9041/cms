@@ -8,7 +8,7 @@ class Login extends Controller {
     
     public function Index(){
         $this->view->title= "Login";
-        $this->view->render("login/index");
+        $this->view->renderAdmin("login/index");
     }
     
     public function Login() {

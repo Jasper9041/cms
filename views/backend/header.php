@@ -15,6 +15,11 @@
                 echo $data;
             }
         ?>
+        <script type="text/javascript">
+            tinymce.init({
+                selector: "textarea"
+            });
+        </script>
     </head>
     <body>
         <div id="navigation">
