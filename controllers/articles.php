@@ -11,7 +11,7 @@ class Articles extends Controller {
         Auth::validateLogin();
         $this->view->title = "Articles";
         $this->view->articles = $this->model->getList();
-        $this->view->renderAdmin('articles/index');
+        $this->view->render('articles/index','backend');
     }
 
     //Create
@@ -20,7 +20,7 @@ class Articles extends Controller {
         $this->view->title = "Create Article";
         $this->view->categories = $this->model->getCategory();
         $this->view->addToHeader('<script type="text/javascript" src="' . URL . 'libs/tinymce/tinymce.min.js"></script>');
-        $this->view->renderAdmin('articles/create');
+        $this->view->render('articles/create','backend');
     }
 
     public function saveCreate() {
@@ -47,7 +47,7 @@ class Articles extends Controller {
             die();
         }
 
-        $this->view->renderAdmin('articles/edit');
+        $this->view->render('articles/edit','backend');
     }
 
     public function saveEdit() {
