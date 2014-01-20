@@ -1,16 +1,16 @@
-<form action="<?php echo URL; ?>menus/saveEdit" method="post">
+<form class="rememberData" action="<?php echo URL; ?>menus/saveEdit" method="post">
     <h1>Edit Menu Item</h1>
     <input type="hidden" name="id" value="<?php echo $this->menu['id']; ?>"></input><br/>
     <label>Title: </label><input type="text" name="title" value="<?php echo $this->menu['title']; ?>"></input><br/>
     <label>Alias: </label><input type="text" name="alias" value="<?php echo $this->menu['alias']; ?>"></input><br/>
     <label>Type: </label>
-        <select name='type' id="typeSelect" onchange="typeChanged('<?php echo URL; ?>menus/edit/<?php echo $this->menu["id"]; ?>/')">
+        <select name='type' id="typeSelect" onchange="typeChangedEdit('<?php echo URL; ?>',<?php echo $this->menu["id"]; ?>)">
             <?php foreach($this->types as $typeTMP){ ?>
                 <option value="<?php echo $typeTMP; ?>" <?php echo (strtolower($typeTMP) == strtolower($this->menu["type"])) ? "selected" : "";  ?> ><?php echo $typeTMP; ?></option>
             <?php } ?>
         </select>
     <br/>
-    <label>Link: </label><input type="text" name="link" value="<?php echo $this->menu['link']; ?>"></input><br/>       
+    <label>Link: </label><input type="text" name="link" value="<?php if(isset($this->menu['link'])) echo $this->menu['link']; ?>"></input><br/>       
     <label>Parent: </label>
         <select name='parentId'>
             <?php foreach($this->parents as $parent){ ?>

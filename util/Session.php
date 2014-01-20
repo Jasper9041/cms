@@ -21,7 +21,13 @@ class Session {
     public static function get($param) {
         if (isset($_SESSION[$param])){
             return $_SESSION[$param];
+        }else{
+            return false;
         }
+    }
+    
+    public static function unsetParam($param){
+        unset($_SESSION[$param]);
     }
 
     public static function destroy() {

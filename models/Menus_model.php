@@ -125,4 +125,8 @@ class Menus_model extends Model {
         $this->tempModel = new Categories_model();
         return $this->tempModel->getList();
     }
+    
+    public function setTypeData($data){
+        Session::set("menuData", $data);
+    }
 }

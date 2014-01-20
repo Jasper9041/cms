@@ -20,7 +20,12 @@ class Menus extends Controller {
     public function edit($id,$type=null){
         $this->view->title = "Edit Menu Item";
         $this->view->addToHeader("<script type='text/javascript' src='".URL."views/menus/typeChanged.js'></script>");
-        $this->view->menu = $this->model->get($id);
+        if(Session::get("menuData")){
+            $this->view->menu = Session::get("menuData");
+            Session::unsetParam("menuData");
+        }else{
+            $this->view->menu = $this->model->get($id);
+        }
         $this->view->parents = $this->model->getParentsList();
         $this->view->types = $this->model->getTypes();
         if ($type != null){
@@ -60,6 +65,10 @@ class Menus extends Controller {
     public function create($type = null){
         $this->view->title = "Create New Menu Item";
         $this->view->addToHeader("<script type='text/javascript' src='".URL."views/menus/typeChanged.js'></script>");
+        if(Session::get("menuData")){
+            $this->view->menu = Session::get("menuData");
+            Session::unsetParam("menuData");
+        }
         $this->view->parents = $this->model->getParentsList();
         $this->view->types = $this->model->getTypes();
         $this->view->type = $type;
@@ -69,7 +78,7 @@ class Menus extends Controller {
                 $this->view->render("menus/create/link",'backend');
                 break;
             case "archive":
-                $this->model->data = $this->model->getCategoryList();
+                $this->view->data = $this->model->getCategoryList();
                 $this->view->render("menus/create/archive",'backend');
                 break;
             case "article":
@@ -94,6 +103,11 @@ class Menus extends Controller {
             $this->model->saveCreate($_POST['title'], $_POST['alias'], $_POST['parentId'], $_POST['type']);
         }
         
+    }
+    
+    public function setTypeData(){
+        echo $_POST['title'];
+        $this->model->setTypeData($_POST);
     }
     
 }
