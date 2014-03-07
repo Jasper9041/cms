@@ -1,6 +1,6 @@
 <?php
 
-class Pictures_model extends Model {
+class Albums_model extends Model {
 
     function __construct() {
         parent::__construct();
@@ -20,39 +20,30 @@ class Pictures_model extends Model {
     }
 
     public function delete($id) {
-
-        $picture = $this->get($id);
-        if (isset($picture)) {
-            $this->db->delete("pictures", "id=:id", array("id" => $id));
-            header('Location: ' . URL . 'pictures/');
+        $album = $this->get($id);
+        if (isset($album)) {
+            $this->db->delete("albums", "id=:id", array("id" => $id));
+            header('Location: ' . URL . 'albums/');
         } else {
-            header('Location: ' . URL . 'pictures/');
+            header('Location: ' . URL . 'albums/');
         }
     }
 
-    public function saveEdit($id,$name,$description,$album,$url){
-        $this->db->update("UPDATE pictures SET name=:name, description=:description, album=:album, url=:url WHERE id=:id", array(
+    public function saveEdit($id, $name, $description) {
+        $this->db->update("UPDATE albums SET name=:name, description=:description WHERE id=:id", array(
             "id" => $id,
             "name" => $name,
-            "description" => $description,
-            "album" => $album,
-            "url" => $url
+            "description" => $description
         ));
-        header('Location: ' . URL . 'pictures/');
+        header('Location: ' . URL . 'albums/');
     }
-    
-    public function getAlbums(){
-        $albums = $this->db->select("SELECT name,id FROM albums");
-        return $albums;
-    }
-    
-    public function saveCreate($name,$description,$album,$url){
-        $this->db->insert("pictures",array(
+
+    public function saveCreate($name, $description) {
+        $this->db->insert("albums", array(
             "name" => $name,
-            "description" => $description,
-            "album" => $album,
-            "url" => $url
+            "description" => $description
         ));
-        header('Location: ' . URL . 'pictures/');
+        header('Location: ' . URL . 'albums/');
     }
+
 }

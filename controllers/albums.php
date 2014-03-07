@@ -18,12 +18,17 @@ class Albums extends Controller {
     public function create() {
         Auth::validateLogin();
         $this->view->title = "Create an album";
+        $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->render('albums/create');
     }
 
     public function saveCreate() {
         Auth::validateLogin();
-
+        if (empty($_POST["name"]) || empty($_POST["description"])) {
+            die('Fill in everything!');
+        } else {
+            $this->model->saveCreate($_POST["name"], $_POST["description"]);
+        }
     }
 
     //Edit
@@ -32,12 +37,16 @@ class Albums extends Controller {
         $this->view->title = "Edit album";
         $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->album = $this->model->get($id);
-        $this->view->render('album/edit');
+        $this->view->render('albums/edit');
     }
 
     public function saveEdit() {
         Auth::validateLogin();
-        
+        if (empty($_POST["id"]) || empty($_POST["name"]) || empty($_POST["description"])) {
+            die('Fill in everything!');
+        } else {
+            $this->model->saveEdit($_POST["id"], $_POST["name"], $_POST["description"]);
+        }
     }
 
     //Delete
