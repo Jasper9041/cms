@@ -7,9 +7,7 @@ class Auth {
     }
 
     public static function validateLogin() {
-        Session::init();
         if (Session::get('username') == null) {
-            echo 'dead';
             Session::destroy();
             header('location: ' . URL . 'login/');
             exit;

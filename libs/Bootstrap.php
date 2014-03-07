@@ -15,6 +15,7 @@ class Bootsrap {
         require_once 'util/Auth.php';
         require_once 'util/MenuUtil.php';
 
+        Session::init();
 
         //check for admin functions
         $this->_fullUrl = isset($_GET['url']) ? $_GET['url'] : null;

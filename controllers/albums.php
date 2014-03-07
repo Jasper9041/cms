@@ -11,7 +11,7 @@ class Albums extends Controller {
         Auth::validateLogin();
         $this->view->title = "Albums";
         $this->view->albums = $this->model->getList();
-        $this->view->render('albums/index','backend');
+        $this->view->render('albums/index', 'backend');
     }
 
     //Create
@@ -19,7 +19,7 @@ class Albums extends Controller {
         Auth::validateLogin();
         $this->view->title = "Create an album";
         $this->view->mainMenu = MenuUtil::getMenu();
-        $this->view->render('albums/create');
+        $this->view->render('albums/create', 'backend');
     }
 
     public function saveCreate() {
@@ -37,7 +37,7 @@ class Albums extends Controller {
         $this->view->title = "Edit album";
         $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->album = $this->model->get($id);
-        $this->view->render('albums/edit');
+        $this->view->render('albums/edit', 'backend');
     }
 
     public function saveEdit() {
@@ -53,11 +53,6 @@ class Albums extends Controller {
     public function delete($id) {
         Auth::validateLogin();
         $this->model->delete($id);
-    }
-    
-    //Display Gallery
-    public function view($id){
-
     }
 
 }
