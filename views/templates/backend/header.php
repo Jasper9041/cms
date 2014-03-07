@@ -28,6 +28,8 @@
                 <li style="display: inline;padding-right:15px;"><a href="<?php echo URL; ?>articles/">Article Manager</a></li>
                 <li style="display: inline;padding-right:15px;"><a href="<?php echo URL; ?>categories/">Article Category Manager</a></li>
                 <li style="display: inline;padding-right:15px;"><a href="<?php echo URL; ?>menus/">Menu Item Manager</a></li>
+                <li style="display: inline;padding-right:15px;"><a href="<?php echo URL; ?>pictures/">Pictures Manager</a></li>
+                <li style="display: inline;padding-right:15px;"><a href="<?php echo URL; ?>Albums/">Albums Manager</a></li>
                 <li style="display: inline;padding-right:15px;">  ---  </li>
                 <li style="display: inline;"><a href="<?php echo URL; ?>logout/logout/">Logout</a></li>
             </ul>
