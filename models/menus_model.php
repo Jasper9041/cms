@@ -59,12 +59,16 @@ class Menus_model extends Model {
     public function delete($id) {
         $menu = $this->get($id);
         if (isset($menu)) {
-            $this->db->delete('menus', 'id = :id', array(
-                "id" => $id
-            ));
-            //succes
-            //echo 'succes';
-            header('Location: ' . URL . 'menus/');
+            if($this->countChildren($menu["id"]) == 0){
+                $this->db->delete('menus', 'id = :id', array(
+                    "id" => $id
+                ));
+                //succes
+                //echo 'succes';
+                header('Location: ' . URL . 'menus/');
+            }else{
+                die("You can't delete a menu that has child items.");
+            }
         } else {
             //no such menu
             //echo 'no such menu';
@@ -115,13 +119,13 @@ class Menus_model extends Model {
     }
 
     public function getArticleList(){
-        require_once 'models/Articles_model.php';
+        require_once 'models/articles_model.php';
         $this->tempModel = new Articles_model();
         return $this->tempModel->getList();
     }
     
     public function getCategoryList(){
-        require_once 'models/Categories_model.php';
+        require_once 'models/categories_model.php';
         $this->tempModel = new Categories_model();
         return $this->tempModel->getList();
     }

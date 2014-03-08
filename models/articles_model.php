@@ -74,6 +74,11 @@ class Articles_model extends Model {
     //category functions
     public function getCategory(){
         $categories = $this->db->select("SELECT name,id FROM categories");
+        $categories[] = array(
+            "id" => 0,
+            "name" => "uncategorised",
+            "description" => "Default Category"
+        );
         return $categories;
     }
     
@@ -81,6 +86,10 @@ class Articles_model extends Model {
         $albumName = $this->db->select("SELECT name FROM categories WHERE id=:id",array(
             "id" => $id
         ));
-        return $albumName[0]['name'];
+        if(count($albumName) > 0){
+            return $albumName[0]['name'];
+        }else{
+            return "uncategorised";
+        }
     }
 }

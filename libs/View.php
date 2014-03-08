@@ -3,12 +3,14 @@
 class View {
 
     private $_headerData = array();
+    private $viewloc;
 
     function __construct() {
         
     }
 
     public function render($paths, $type = "frontend") {
+        $this->viewloc = URL . "views/templates/" . $type . "/";
         require 'views/templates/' . $type . '/header.php';
         if (is_array($paths)) {
             foreach ($paths as $path) {

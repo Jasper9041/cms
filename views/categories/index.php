@@ -1,5 +1,5 @@
 <h1>Categories</h1>
-<a href="<?php echo URL; ?>categories/create">Create New Album</a><br/><br/>
+<a href="<?php echo URL; ?>categories/create">Create New Category</a><br/><br/>
 <table>
     <tr><td>Id: </td><td>Title: </td><td>Description: </td></tr>
     <?php foreach ($this->categories as $category) { ?>

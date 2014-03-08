@@ -13,13 +13,7 @@
     <label>Parent: </label>
         <select name='parentId'>
             <?php foreach ($this->parents as $parent) { ?>
-                <?php if ($parent['id'] != $this->menu['id']) { ?>
-                    <?php if (isset($this->menu)) { ?>
-                        <option value="<?php echo $parent['id']; ?>" <?php echo ($parent['id'] == $this->menu['parentId'] ? 'selected' : ''); ?> ><?php echo $parent['title']; ?></option>
-                    <?php } else { ?>
-                        <option value="<?php echo $parent['id']; ?>"><?php echo $parent['title']; ?></option>
-                    <?php } ?>
-                <?php } ?>
+                <option value="<?php echo $parent['id']; ?>"><?php echo $parent['title']; ?></option>
             <?php } ?>
         </select>
     <br/>

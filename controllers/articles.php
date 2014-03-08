@@ -28,7 +28,7 @@ class Articles extends Controller {
         if (empty($_POST['title']) || empty($_POST['content'])) {
             die('Fill in everything!');
         }else{
-            $this->model->saveCreate(htmlentities($_POST['title']),htmlentities($_POST['content']),$_POST[category]);
+            $this->model->saveCreate(htmlentities($_POST['title']),htmlentities($_POST['content']),$_POST["category"]);
         }
     }
 
