@@ -20,9 +20,9 @@ class Pictures extends Controller {
         $this->view->title = "Upload a picture";
         $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->albums = $this->model->getAlbums();
-        if (isset($_SESSION["picture"])) {
+        if (Session::get("picture")) {
             $this->view->upload = true;
-            $this->view->url = $_SESSION["picture"];
+            $this->view->url = Session::get("picture");
         }
         $this->view->render('pictures/create', 'backend');
     }

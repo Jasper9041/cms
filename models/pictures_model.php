@@ -71,7 +71,7 @@ class Pictures_model extends Model {
             "album" => $album,
             "url" => $url
         ));
-        //header('Location: ' . URL . 'pictures/');
+        header('Location: ' . URL . 'pictures/');
     }
 
     public function saveUpload($file) {
@@ -86,10 +86,9 @@ class Pictures_model extends Model {
                     echo $file["name"] . " already exists. ";
                 } else {
                     //make upload final
-                    $fileName = "../images/" . $file["name"];
-                    echo $file["tmp_name"];
-                    move_uploaded_file($file["tmp_name"], "../images/" . $file["name"]);
-                    //header("Location: " . URL . "pictures/create/");
+                    $fileName = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "images/" . $file["name"];
+                    move_uploaded_file($file["tmp_name"], $fileName);
+                    header("Location: " . URL . "pictures/create/");
                 }
             }
         } else {

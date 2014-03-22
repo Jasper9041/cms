@@ -8,7 +8,7 @@
         <?php } ?>
     </select>
     <br/>
-    <?php if ($this->upload == true) { ?>
+    <?php if (isset($this->upload)) { ?>
         <input type="hidden" name="url" value="<?php echo $this->url; ?>"></input>
     <?php } else { ?>
         <label>Url: </label><input type="text" name="url" value=""></input><br/>
