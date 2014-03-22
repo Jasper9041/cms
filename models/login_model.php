@@ -22,7 +22,6 @@ class Login_model extends Model {
 
         if (isset($user[0])) {
             if (Auth::checkBlowfish($password, $user[0]['password'])) {
-                Session::init();
                 Session::set('username', $username);
                 header('Location: '.URL.'admin/');
             }else{

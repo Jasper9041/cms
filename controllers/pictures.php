@@ -17,10 +17,14 @@ class Pictures extends Controller {
     //Create
     public function create() {
         Auth::validateLogin();
-        $this->view->title = "Upload a pciture";
+        $this->view->title = "Upload a picture";
         $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->albums = $this->model->getAlbums();
-        $this->view->render('pictures/create','backend');
+        if (isset($_SESSION["picture"])) {
+            $this->view->upload = true;
+            $this->view->url = $_SESSION["picture"];
+        }
+        $this->view->render('pictures/create', 'backend');
     }
 
     public function saveCreate() {
@@ -28,7 +32,11 @@ class Pictures extends Controller {
         if (empty($_POST["name"]) || empty($_POST["description"]) || empty($_POST["album"]) || empty($_POST["url"])) {
             die('Fill in everything!');
         } else {
-            $this->model->saveCreate($_POST["name"], $_POST["description"], $_POST["album"], $_POST["url"]);
+            if (isset($_POST["fileName"])){
+                $this->model->saveCreate($_POST["name"], $_POST["description"], $_POST["album"], $_POST["url"],$_POST["fileName"]);
+            }else{
+                $this->model->saveCreate($_POST["name"], $_POST["description"], $_POST["album"], $_POST["url"]);
+            }
         }
     }
 
@@ -39,7 +47,7 @@ class Pictures extends Controller {
         $this->view->mainMenu = MenuUtil::getMenu();
         $this->view->albums = $this->model->getAlbums();
         $this->view->picture = $this->model->get($id);
-        $this->view->render('pictures/edit','backend');
+        $this->view->render('pictures/edit', 'backend');
     }
 
     public function saveEdit() {
@@ -62,14 +70,23 @@ class Pictures extends Controller {
         $picture = $this->model->get($id);
         $this->view->picture = $picture;
         $this->view->title = $picture["name"];
-        $this->view->render('pictures/view','backend');
+        $this->view->render('pictures/view', 'backend');
     }
-    
-    public function viewAlbum($albumId){
+
+    public function viewAlbum($albumId) {
         $pictures = $this->model->getListByAlbum($albumId);
         $this->view->pictures = $pictures;
         $this->view->title = $this->model->getAlbumName($albumId);
-        $this->view->render('pictures/viewAlbum','backend');
+        $this->view->render('pictures/viewAlbum', 'backend');
+    }
+
+    public function saveUpload() {
+        $this->model->saveUpload($_FILES["image"]);
+    }
+
+    public function upload() {
+        $this->view->title = "Upload picture";
+        $this->view->render("pictures/upload", "backend");
     }
 
 }

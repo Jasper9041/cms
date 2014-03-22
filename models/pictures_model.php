@@ -48,7 +48,7 @@ class Pictures_model extends Model {
         }
     }
 
-    public function saveEdit($id,$name,$description,$album,$url){
+    public function saveEdit($id, $name, $description, $album, $url) {
         $this->db->update("UPDATE pictures SET name=:name, description=:description, album=:album, url=:url WHERE id=:id", array(
             "id" => $id,
             "name" => $name,
@@ -58,19 +58,43 @@ class Pictures_model extends Model {
         ));
         header('Location: ' . URL . 'pictures/');
     }
-    
-    public function getAlbums(){
+
+    public function getAlbums() {
         $albums = $this->db->select("SELECT name,id FROM albums");
         return $albums;
     }
-    
-    public function saveCreate($name,$description,$album,$url){
-        $this->db->insert("pictures",array(
+
+    public function saveCreate($name, $description, $album, $url) {
+        $this->db->insert("pictures", array(
             "name" => $name,
             "description" => $description,
             "album" => $album,
             "url" => $url
         ));
-        header('Location: ' . URL . 'pictures/');
+        //header('Location: ' . URL . 'pictures/');
     }
+
+    public function saveUpload($file) {
+        $allowedExts = array("gif", "jpeg", "jpg", "png", "PNG");
+        $temp = explode(".", $file["name"]);
+        $extension = end($temp);
+        if (in_array($extension, $allowedExts)){
+            if ($file["error"] > 0) {
+                echo "Return Code: " . $file["error"] . "<br>";
+            } else {
+                if (file_exists("upload/" . $file["name"])) {
+                    echo $file["name"] . " already exists. ";
+                } else {
+                    //make upload final
+                    $fileName = "../images/" . $file["name"];
+                    echo $file["tmp_name"];
+                    move_uploaded_file($file["tmp_name"], "../images/" . $file["name"]);
+                    //header("Location: " . URL . "pictures/create/");
+                }
+            }
+        } else {
+            echo "Invalid file";
+        }
+    }
+
 }
