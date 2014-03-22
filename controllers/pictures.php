@@ -23,6 +23,8 @@ class Pictures extends Controller {
         if (Session::get("picture")) {
             $this->view->upload = true;
             $this->view->url = Session::get("picture");
+        }else{
+            
         }
         $this->view->render('pictures/create', 'backend');
     }
@@ -67,24 +69,28 @@ class Pictures extends Controller {
 
     //Display Gallery
     public function view($id) {
+        $this->view->mainMenu = MenuUtil::getMenu();
         $picture = $this->model->get($id);
         $this->view->picture = $picture;
         $this->view->title = $picture["name"];
-        $this->view->render('pictures/view', 'backend');
+        $this->view->render('pictures/view');
     }
 
     public function viewAlbum($albumId) {
+        $this->view->mainMenu = MenuUtil::getMenu();
         $pictures = $this->model->getListByAlbum($albumId);
         $this->view->pictures = $pictures;
         $this->view->title = $this->model->getAlbumName($albumId);
-        $this->view->render('pictures/viewAlbum', 'backend');
+        $this->view->render('pictures/viewAlbum');
     }
 
     public function saveUpload() {
+        Auth::validateLogin();
         $this->model->saveUpload($_FILES["image"]);
     }
 
     public function upload() {
+        Auth::validateLogin();
         $this->view->title = "Upload picture";
         $this->view->render("pictures/upload", "backend");
     }

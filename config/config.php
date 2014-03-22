@@ -10,4 +10,5 @@ define("DB_PASSWORD","");
 // root url
 // don't forget '/' !
 define("URL", "http://localhost/cms/");
-define("ROOTURL", "/cms/");
+// no trailing '/'!
+define("ROOTURL", "/cms");

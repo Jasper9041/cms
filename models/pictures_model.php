@@ -41,6 +41,10 @@ class Pictures_model extends Model {
 
         $picture = $this->get($id);
         if (isset($picture)) {
+            $filename = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "/images/". substr( $picture["url"], strrpos( $picture["url"], '/' )+1 );
+            if(file_exists($filename)){
+                unlink($filename);
+            }
             $this->db->delete("pictures", "id=:id", array("id" => $id));
             header('Location: ' . URL . 'pictures/');
         } else {
@@ -86,8 +90,9 @@ class Pictures_model extends Model {
                     echo $file["name"] . " already exists. ";
                 } else {
                     //make upload final
-                    $fileName = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "images/" . $file["name"];
+                    $fileName = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "/images/" . $file["name"];
                     move_uploaded_file($file["tmp_name"], $fileName);
+                    Session::set("picture",URL . "images/" . $file["name"]);
                     header("Location: " . URL . "pictures/create/");
                 }
             }
