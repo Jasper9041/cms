@@ -81,7 +81,7 @@ class Pictures_model extends Model {
     public function saveUpload($file) {
         $allowedExts = array("gif", "jpeg", "jpg", "png", "PNG");
         $temp = explode(".", $file["name"]);
-        $extension = end($temp);
+        $extension = strtolower(end($temp));
         if (in_array($extension, $allowedExts)){
             if ($file["error"] > 0) {
                 echo "Return Code: " . $file["error"] . "<br>";

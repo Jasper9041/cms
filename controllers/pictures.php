@@ -23,8 +23,7 @@ class Pictures extends Controller {
         if (Session::get("picture")) {
             $this->view->upload = true;
             $this->view->url = Session::get("picture");
-        }else{
-            
+            Session::unsetParam("picture");
         }
         $this->view->render('pictures/create', 'backend');
     }

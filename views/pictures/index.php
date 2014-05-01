@@ -1,7 +1,7 @@
 <h1>Pictures</h1>
-<a href="<?php echo URL; ?>pictures/create">Create New Picture</a>   <a href="<?php echo URL; ?>pictures/upload">Upload New Picture</a><br/><br/>
-<table>
-    <tr><td>Id: </td><td>Thumbnail: </td><td>Title: </td><td>Album: </td><td>Description: </td></tr>
+<a href="<?php echo URL; ?>pictures/create">Create New Picture</a>  -  <a href="<?php echo URL; ?>pictures/upload">Upload New Picture</a><br/><br/>
+<table id="content-table">
+    <tr><td>Id: </td><td>Thumbnail</td><td>Title</td><td>Album</td><td>Description</td><td></td><td></td></tr>
     <?php foreach ($this->pictures as $picture) { ?>
         <tr>
             <td><?php echo $picture['id']; ?></td>

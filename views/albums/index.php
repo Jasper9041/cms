@@ -1,7 +1,7 @@
 <h1>Albums</h1>
 <a href="<?php echo URL; ?>albums/create">Create New Album</a><br/><br/>
-<table>
-    <tr><td>Id: </td><td>Name: </td><td>Description: </td></tr>
+<table id="content-table">
+    <tr><td>Id</td><td>Name</td><td>Description</td><td></td><td></td></tr>
     <?php foreach ($this->albums as $album) { ?>
         <tr>
             <td><?php echo $album['id']; ?></td>

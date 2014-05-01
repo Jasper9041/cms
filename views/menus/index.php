@@ -1,7 +1,7 @@
 <h1>Menu Items</h1>
 <a href="<?php echo URL; ?>menus/create">Create New Menu Item</a><br/><br/>
-<table>
-    <tr><td>Id: </td><td>Title: </td><td>Alias: </td><td>Link: </td><td>ParentId: </td></tr>
+<table id="content-table">
+    <tr><td>Id</td><td>Title</td><td>Alias</td><td>Link</td><td>ParentId</td><td></td><td></td></tr>
     <?php render($this->menus); ?>
 </table>
 

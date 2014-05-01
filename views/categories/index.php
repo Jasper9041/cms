@@ -1,7 +1,7 @@
 <h1>Categories</h1>
 <a href="<?php echo URL; ?>categories/create">Create New Category</a><br/><br/>
-<table>
-    <tr><td>Id: </td><td>Title: </td><td>Description: </td></tr>
+<table id="content-table">
+    <tr><td>Id</td><td>Title</td><td>Description</td><td></td><td></td></tr>
     <?php foreach ($this->categories as $category) { ?>
         <tr>
             <td><?php echo $category['id']; ?></td>
