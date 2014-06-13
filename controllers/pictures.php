@@ -7,10 +7,15 @@ class Pictures extends Controller {
     }
 
     //List
-    public function Index() {
+    public function Index($albumId = 0) {
         Auth::validateLogin();
         $this->view->title = "Pictures";
-        $this->view->pictures = $this->model->getList();
+        if ($albumId == 0){
+            $this->view->pictures = $this->model->getList();
+        }else{
+            $this->view->pictures = $this->model->getListByAlbum($albumId);
+        }
+        $this->view->albums = $this->model->getAlbums();
         $this->view->render('pictures/index', 'backend');
     }
 
@@ -92,6 +97,16 @@ class Pictures extends Controller {
         Auth::validateLogin();
         $this->view->title = "Upload picture";
         $this->view->render("pictures/upload", "backend");
+    }
+
+    public function up($id){
+        Auth::validateLogin();
+        $this->model->order($id,-3);
+    }
+
+    public function down($id){
+        Auth::validateLogin();
+        $this->model->order($id,3);
     }
 
 }

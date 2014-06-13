@@ -37,5 +37,3 @@
                     </div>
                 </td>
                 <td id="content">
-                
-            

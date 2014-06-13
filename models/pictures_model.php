@@ -15,7 +15,7 @@ class Pictures_model extends Model {
     }
 
     public function getList() {
-        $pictures = $this->db->select("SELECT * FROM pictures");
+        $pictures = $this->db->select("SELECT * FROM pictures ORDER BY `order` ASC");
         foreach ($pictures as &$picture) {
             $picture['albumName'] = $this->getAlbumName($picture['album']);
         }
@@ -37,12 +37,19 @@ class Pictures_model extends Model {
         return $albumName[0]['name'];
     }
 
+    public function getAlbumId($id) {
+        $albumId = $this->db->select("SELECT album FROM pictures WHERE id=:id", array(
+            "id" => $id
+        ));
+        return $albumId[0]['album'];
+    }
+
     public function delete($id) {
 
         $picture = $this->get($id);
         if (isset($picture)) {
-            $filename = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "/images/". substr( $picture["url"], strrpos( $picture["url"], '/' )+1 );
-            if(file_exists($filename)){
+            $filename = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "/images/" . substr($picture["url"], strrpos($picture["url"], '/') + 1);
+            if (file_exists($filename)) {
                 unlink($filename);
             }
             $this->db->delete("pictures", "id=:id", array("id" => $id));
@@ -69,12 +76,15 @@ class Pictures_model extends Model {
     }
 
     public function saveCreate($name, $description, $album, $url) {
+        $order = $this->db->select("SELECT `order` FROM `pictures` WHERE `album`=:album ORDER BY `order` DESC LIMIT 1", array("album" => $album));
         $this->db->insert("pictures", array(
             "name" => $name,
             "description" => $description,
             "album" => $album,
-            "url" => $url
+            "url" => $url,
+            "order" => $order[0]["order"]
         ));
+        $this->reOrder($album);
         header('Location: ' . URL . 'pictures/');
     }
 
@@ -82,7 +92,7 @@ class Pictures_model extends Model {
         $allowedExts = array("gif", "jpeg", "jpg", "png", "PNG");
         $temp = explode(".", $file["name"]);
         $extension = strtolower(end($temp));
-        if (in_array($extension, $allowedExts)){
+        if (in_array($extension, $allowedExts)) {
             if ($file["error"] > 0) {
                 echo "Return Code: " . $file["error"] . "<br>";
             } else {
@@ -92,13 +102,31 @@ class Pictures_model extends Model {
                     //make upload final
                     $fileName = $_SERVER['DOCUMENT_ROOT'] . ROOTURL . "/images/" . $file["name"];
                     move_uploaded_file($file["tmp_name"], $fileName);
-                    Session::set("picture",URL . "images/" . $file["name"]);
+                    Session::set("picture", URL . "images/" . $file["name"]);
                     header("Location: " . URL . "pictures/create/");
                 }
             }
         } else {
             echo "Invalid file";
         }
+    }
+
+    public function reOrder($albumId) {
+        $handler = $this->db->prepare("SET @num := 0;");
+        $handler->execute();
+        $handler = $this->db->prepare("UPDATE `pictures` SET `order`=(@num := (@num+2)) WHERE `album`=:album ORDER BY `order` ASC");
+        $handler->bindValue(":album", $albumId);
+        $handler->execute();
+    }
+
+    public function order($id, $value) {
+        $currOrder = $this->db->select("SELECT `order` FROM `pictures` WHERE `id`=:id LIMIT 1", array("id" => $id));
+        $this->db->update("UPDATE `pictures` SET `order`=:order WHERE `id`=:id", array(
+            "id" => $id,
+            "order" => $currOrder[0]["order"] + $value
+        ));
+        $this->reOrder($this->getAlbumId($id));
+        header('Location: ' . URL . 'pictures/');
     }
 
 }

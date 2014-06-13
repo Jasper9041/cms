@@ -25,5 +25,3 @@
                     
                 </td>
                 <td id="content">
-                
-            

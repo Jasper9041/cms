@@ -58,5 +58,13 @@ class Database extends PDO {
         $rows = $sql->fetch($mode);
         return $rows[0];
     }
+    
+    public function run($query, $data = array(), $mode = PDO::FETCH_ASSOC) {
+        $sql = $this->prepare($query);
+        foreach ($data as $key => $value) {
+            $sql->bindValue(":$key", $value);
+        }
 
+        $sql->execute();
+    }
 }

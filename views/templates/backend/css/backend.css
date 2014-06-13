@@ -84,13 +84,60 @@ table#content-table tr:nth-child(1){
     background-color: #222;
 }
 table#content-table td{
-    padding: 5px;
+    padding: 7px;
     border-right: 2px solid #222;
 }
 table#content-table td:last-child{
     border-right: 0px solid #222;
+    width: 100%;
+}
+table#content-table td:last-child a{
+    float: right;
+    padding-left: 10px;
+}
+table#content-table td:last-child a:hover{
+    color: #ccc;
+}
+table#content-table td:nth-last-child(2){
+    border-right: none;
 }
 table#content-table{
     width: 100%;
     border: 2px solid #222;
+}
+@font-face {
+    font-family: "Glyphicons Halflings";
+    src: url(../fonts/glyphicons-halflings-regular.ttf) format("truetype");
+}
+a.edit-link:after{
+    font-family: "Glyphicons Halflings";
+    content: "\270f";
+    float: right;
+}
+a.delete-link:after{
+    font-family: "Glyphicons Halflings";
+    content: "\e014";
+    float: right;
+}
+a.orderUp-link:after{
+    font-family: "Glyphicons Halflings";
+    content: "\e113";
+    float: right;
+}
+a.orderDown-link:after{
+    font-family: "Glyphicons Halflings";
+    content: "\e114";
+    float: right;
+}
+td.edit-delete-col{
+    width: 100%;
+}
+label{
+    display: inline-block;
+    width:100px;
+}
+input, select, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
